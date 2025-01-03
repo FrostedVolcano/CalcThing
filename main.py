@@ -55,6 +55,7 @@ with tab1:
     col1, col2 = st.columns(2, gap='large')
 
     with col1:
+        st.write("######")
         st.write("Input Wye (Y) Resistor Values:")
         # Draw Wye circuit
         cols1, cols2, cols3 = st.columns(3)
@@ -67,6 +68,13 @@ with tab1:
             
         wye_circuit = draw_wye_circuit(res1, res2, res3)
         st.markdown(f'{wye_circuit.decode()}', unsafe_allow_html=True)
+        
+        st.write("#")
+        st.subheader("Formula used:")
+        st.latex(r"R_a = \frac{R_1 R_2 + R_2 R_3 + R_3 R_1}{R_1}")
+        st.latex(r"R_b = \frac{R_1 R_2 + R_2 R_3 + R_3 R_1}{R_2}")
+        st.latex(r"R_c = \frac{R_1 R_2 + R_2 R_3 + R_3 R_1}{R_3}")
+
 
     with col2:
         # Draw Delta circuit
@@ -81,12 +89,8 @@ with tab1:
         st.write(f"Rb = {resb:.4f} Ω")
         st.write(f"Rc = {resc:.4f} Ω")
         st.markdown(f'{delta_circuit.decode()}', unsafe_allow_html=True)
-    
-    with st.expander("Formula used:", expanded=False):
-        st.latex(r"R_a = \frac{R_1 R_2 + R_2 R_3 + R_3 R_1}{R_1}")
-        st.latex(r"R_b = \frac{R_1 R_2 + R_2 R_3 + R_3 R_1}{R_2}")
-        st.latex(r"R_c = \frac{R_1 R_2 + R_2 R_3 + R_3 R_1}{R_3}")
-
+        
+        
 
 
 with tab2:
@@ -120,6 +124,7 @@ with tab2:
     col1, col2 = st.columns(2, gap='large')
 
     with col1:
+        st.write("######")
         # Input Delta resistor values
         st.write("Input Delta (Δ) Resistor Values:")
         cols1, cols2, cols3 = st.columns(3)
@@ -133,6 +138,12 @@ with tab2:
         # Draw Delta circuit
         delta_circuit = draw_delta_circuit(r1, r2, r3)
         st.markdown(f'{delta_circuit.decode()}', unsafe_allow_html=True)
+        
+        st.write("#")
+        st.subheader("Formula used:")
+        st.latex(r"R_1 = \frac{R_a R_b}{R_a + R_b + R_c}")
+        st.latex(r"R_2 = \frac{R_b R_c}{R_a + R_b + R_c}")
+        st.latex(r"R_3 = \frac{R_c R_a}{R_a + R_b + R_c}")
 
     with col2:
         # Calculate Wye resistor values
@@ -149,8 +160,5 @@ with tab2:
         st.write(f"R3 = {rc:.4f} Ω")
         st.markdown(f'{wye_circuit.decode()}', unsafe_allow_html=True)
     
-    with st.expander("Formula used:", expanded=False):
-        st.latex(r"R_1 = \frac{R_a R_b}{R_a + R_b + R_c}")
-        st.latex(r"R_2 = \frac{R_b R_c}{R_a + R_b + R_c}")
-        st.latex(r"R_3 = \frac{R_c R_a}{R_a + R_b + R_c}")
+        
          
