@@ -69,6 +69,7 @@ with tab1:
         wye_circuit = draw_wye_circuit(res1, res2, res3)
         st.markdown(f'{wye_circuit.decode()}', unsafe_allow_html=True)
         
+        #@st.fragment()   
         st.write("#")
         st.subheader("Formula used:")
         st.latex(r"R_a = \frac{R_1 R_2 + R_2 R_3 + R_3 R_1}{R_1}")
@@ -139,6 +140,7 @@ with tab2:
         delta_circuit = draw_delta_circuit(r1, r2, r3)
         st.markdown(f'{delta_circuit.decode()}', unsafe_allow_html=True)
         
+        #@st.fragment()
         st.write("#")
         st.subheader("Formula used:")
         st.latex(r"R_1 = \frac{R_a R_b}{R_a + R_b + R_c}")
