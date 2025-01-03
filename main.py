@@ -1,13 +1,12 @@
 import streamlit as st
 import schemdraw
 import schemdraw.elements as elm
-from io import BytesIO
 
 st.set_page_config(page_title="CalcThing", page_icon="logo.png", layout="wide")
 
 st.markdown("""
 <head>
-<script defer src="https://cloud.umami.is/script.js" data-website-id="cf7f0ed8-7e4e-4a27-8a02-c013fc8291b1"></script>
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="cf7f0ed8-7e4e-4a27-8a02-c013fc8291b1"></script>
 </head>
 <style>
 	[data-testid="stDecoration"] {
@@ -72,17 +71,6 @@ with tab1:
         wye_circuit = draw_wye_circuit(res1, res2, res3)
         st.markdown(f'{wye_circuit.decode()}', unsafe_allow_html=True)
         
-        @st.fragment()
-        def frag1():  
-            st.write("#")
-            st.subheader("Formula used:")
-            st.latex(r"R_a = \frac{R_1 R_2 + R_2 R_3 + R_3 R_1}{R_1}")
-            st.latex(r"R_b = \frac{R_1 R_2 + R_2 R_3 + R_3 R_1}{R_2}")
-            st.latex(r"R_c = \frac{R_1 R_2 + R_2 R_3 + R_3 R_1}{R_3}")
-        frag1()
-        
-
-
     with col2:
         # Draw Delta circuit
         denominator = res1 * res2 + res2 * res3 + res3 * res1
@@ -97,6 +85,14 @@ with tab1:
         st.write(f"Rc = {resc:.4f} Ω")
         st.markdown(f'{delta_circuit.decode()}', unsafe_allow_html=True)
         
+    @st.fragment()
+    def frag1():  
+        st.write("#")
+        st.subheader("Formula used:")
+        st.latex(r"R_a = \frac{R_1 R_2 + R_2 R_3 + R_3 R_1}{R_1}")
+        st.latex(r"R_b = \frac{R_1 R_2 + R_2 R_3 + R_3 R_1}{R_2}")
+        st.latex(r"R_c = \frac{R_1 R_2 + R_2 R_3 + R_3 R_1}{R_3}")
+    frag1()
         
 
 
@@ -145,16 +141,7 @@ with tab2:
         # Draw Delta circuit
         delta_circuit = draw_delta_circuit(r1, r2, r3)
         st.markdown(f'{delta_circuit.decode()}', unsafe_allow_html=True)
-        
-        @st.fragment()
-        def frag2():
-            st.write("#")
-            st.subheader("Formula used:")
-            st.latex(r"R_1 = \frac{R_a R_b}{R_a + R_b + R_c}")
-            st.latex(r"R_2 = \frac{R_b R_c}{R_a + R_b + R_c}")
-            st.latex(r"R_3 = \frac{R_c R_a}{R_a + R_b + R_c}")
-        frag2()
-
+            
     with col2:
         # Calculate Wye resistor values
         r_sum = r1 + r2 + r3
@@ -169,6 +156,15 @@ with tab2:
         st.write(f"R2 = {rb:.4f} Ω")
         st.write(f"R3 = {rc:.4f} Ω")
         st.markdown(f'{wye_circuit.decode()}', unsafe_allow_html=True)
+    
+    @st.fragment()
+    def frag2():
+        st.write("#")
+        st.subheader("Formula used:")
+        st.latex(r"R_1 = \frac{R_a R_b}{R_a + R_b + R_c}")
+        st.latex(r"R_2 = \frac{R_b R_c}{R_a + R_b + R_c}")
+        st.latex(r"R_3 = \frac{R_c R_a}{R_a + R_b + R_c}")
+    frag2()
     
         
          
