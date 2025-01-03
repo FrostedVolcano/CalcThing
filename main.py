@@ -129,11 +129,11 @@ with tab2:
         st.write("Input Delta (Δ) Resistor Values:")
         cols1, cols2, cols3 = st.columns(3)
         with cols1:
-            r1 = st.number_input("Value of Ra: ", min_value=0.0001, value=30.0, step=0.1)
+            r1 = st.number_input("Value of Ra: ", min_value=0.0001, value=30.0, step=1.0)
         with cols2:
-            r2 = st.number_input("Value of Rb: ", min_value=0.0001, value=30.0, step=0.1)
+            r2 = st.number_input("Value of Rb: ", min_value=0.0001, value=30.0, step=1.0)
         with cols3:
-            r3 = st.number_input("Value of Rc: ", min_value=0.0001, value=30.0, step=0.1)
+            r3 = st.number_input("Value of Rc: ", min_value=0.0001, value=30.0, step=1.0)
     
         # Draw Delta circuit
         delta_circuit = draw_delta_circuit(r1, r2, r3)
