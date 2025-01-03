@@ -6,6 +6,7 @@ from io import BytesIO
 st.set_page_config(page_title="CalcThing", page_icon="logo.png", layout="wide")
 
 st.markdown("""
+<script defer src="https://cloud.umami.is/script.js" data-website-id="cf7f0ed8-7e4e-4a27-8a02-c013fc8291b1"></script>
 <style>
 	[data-testid="stDecoration"] {
 		display: none;
@@ -69,12 +70,13 @@ with tab1:
         wye_circuit = draw_wye_circuit(res1, res2, res3)
         st.markdown(f'{wye_circuit.decode()}', unsafe_allow_html=True)
         
-        #@st.fragment()   
-        st.write("#")
-        st.subheader("Formula used:")
-        st.latex(r"R_a = \frac{R_1 R_2 + R_2 R_3 + R_3 R_1}{R_1}")
-        st.latex(r"R_b = \frac{R_1 R_2 + R_2 R_3 + R_3 R_1}{R_2}")
-        st.latex(r"R_c = \frac{R_1 R_2 + R_2 R_3 + R_3 R_1}{R_3}")
+        @st.fragment()
+        def frag1():   
+           st.write("#")
+           st.subheader("Formula used:")
+           st.latex(r"R_a = \frac{R_1 R_2 + R_2 R_3 + R_3 R_1}{R_1}")
+           st.latex(r"R_b = \frac{R_1 R_2 + R_2 R_3 + R_3 R_1}{R_2}")
+           st.latex(r"R_c = \frac{R_1 R_2 + R_2 R_3 + R_3 R_1}{R_3}")
 
 
     with col2:
@@ -140,12 +142,13 @@ with tab2:
         delta_circuit = draw_delta_circuit(r1, r2, r3)
         st.markdown(f'{delta_circuit.decode()}', unsafe_allow_html=True)
         
-        #@st.fragment()
-        st.write("#")
-        st.subheader("Formula used:")
-        st.latex(r"R_1 = \frac{R_a R_b}{R_a + R_b + R_c}")
-        st.latex(r"R_2 = \frac{R_b R_c}{R_a + R_b + R_c}")
-        st.latex(r"R_3 = \frac{R_c R_a}{R_a + R_b + R_c}")
+        @st.fragment()
+        def frag2():
+            st.write("#")
+            st.subheader("Formula used:")
+            st.latex(r"R_1 = \frac{R_a R_b}{R_a + R_b + R_c}")
+            st.latex(r"R_2 = \frac{R_b R_c}{R_a + R_b + R_c}")
+            st.latex(r"R_3 = \frac{R_c R_a}{R_a + R_b + R_c}")
 
     with col2:
         # Calculate Wye resistor values
