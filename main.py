@@ -35,11 +35,8 @@ with tab1:
             d.add(elm.Resistor().theta(-120).at(center.start).label(f"R2={res2:.4f}Ω", loc="top").label("y", loc="left"))
             d.add(elm.Resistor().theta(120).at(center.start).label(f"R3={res3:.4f}Ω", loc="bottom").label("z", loc="left"))
         
-            # Save to buffer
-            buf = BytesIO()
-            d.save(buf)
-            buf.seek(0)
-            return buf
+            svg_content = d.get_imagedata('svg')
+            return svg_content
            
     def draw_delta_circuit(resa, resb, resc):
         with schemdraw.Drawing() as d:
@@ -50,11 +47,9 @@ with tab1:
             r3 = d.add(elm.Resistor().theta(-150).label(f"Rc={resc:.4f}Ω", loc="bottom", ofst=.3).label("y", loc="left"))
             d.add(elm.Line().at(r3.end).to(r1.start))  # Close the Delta loop
         
-            # Save to buffer
-            buf = BytesIO()
-            d.save(buf)
-            buf.seek(0)
-            return buf
+            svg_content = d.get_imagedata('svg')
+            return svg_content
+        
     st.subheader(" Wye (Y) to Delta (Δ) Circuit Converter")
         
     col1, col2 = st.columns(2, gap='large')
@@ -71,7 +66,7 @@ with tab1:
            res3 = st.number_input("Value of R3: ", min_value=0.0001, value=10.0, step=1.0)
             
         wye_circuit = draw_wye_circuit(res1, res2, res3)
-        st.image(wye_circuit, caption="Wye (Y) Circuit Diagram")
+        st.markdown(f'{wye_circuit.decode()}', unsafe_allow_html=True)
 
     with col2:
         # Draw Delta circuit
@@ -85,7 +80,7 @@ with tab1:
         st.write(f"Ra = {resa:.4f} Ω")
         st.write(f"Rb = {resb:.4f} Ω")
         st.write(f"Rc = {resc:.4f} Ω")
-        st.image(delta_circuit, caption="Delta (Δ) Circuit Diagram")
+        st.markdown(f'{delta_circuit.decode()}', unsafe_allow_html=True)
     
     with st.expander("Formula used:", expanded=False):
         st.latex(r"R_a = \frac{R_1 R_2 + R_2 R_3 + R_3 R_1}{R_1}")
@@ -105,11 +100,8 @@ with tab2:
             r3_draw = d.add(elm.Resistor().theta(-150).label(f"Rc={r3:.4f}Ω", loc="bottom", ofst=.3).label("y", loc="left"))
             d.add(elm.Line().at(r3_draw.end).to(r1_draw.start))  # Close the Delta loop
         
-            # Save to buffer
-            buf = BytesIO()
-            d.save(buf)
-            buf.seek(0)
-            return buf
+            svg_content = d.get_imagedata('svg')
+            return svg_content
         
     def draw_wye_circuit(ra, rb, rc):
         with schemdraw.Drawing() as d:
@@ -119,11 +111,9 @@ with tab2:
             d.add(elm.Resistor().theta(-120).at(center.start).label(f"R2={rb:.4f}Ω", loc="top").label("y", loc="left"))
             d.add(elm.Resistor().theta(120).at(center.start).label(f"R3={rc:.4f}Ω", loc="bottom").label("z", loc="left"))
         
-            # Save to buffer
-            buf = BytesIO()
-            d.save(buf)
-            buf.seek(0)
-            return buf
+            
+            svg_content = d.get_imagedata('svg')
+            return svg_content
         
     st.subheader("Delta (Δ) to Wye (Y) Circuit Converter")
 
@@ -142,7 +132,7 @@ with tab2:
     
         # Draw Delta circuit
         delta_circuit = draw_delta_circuit(r1, r2, r3)
-        st.image(delta_circuit, caption="Delta (Δ) Circuit Diagram")
+        st.markdown(f'{delta_circuit.decode()}', unsafe_allow_html=True)
 
     with col2:
         # Calculate Wye resistor values
@@ -157,7 +147,7 @@ with tab2:
         st.write(f"R1 = {ra:.4f} Ω")
         st.write(f"R2 = {rb:.4f} Ω")
         st.write(f"R3 = {rc:.4f} Ω")
-        st.image(wye_circuit, caption="Wye (Y) Circuit Diagram")
+        st.markdown(f'{wye_circuit.decode()}', unsafe_allow_html=True)
     
     with st.expander("Formula used:", expanded=False):
         st.latex(r"R_1 = \frac{R_a R_b}{R_a + R_b + R_c}")
