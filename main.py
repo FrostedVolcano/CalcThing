@@ -3,7 +3,7 @@ import schemdraw
 import schemdraw.elements as elm
 from io import BytesIO
 
-st.set_page_config(page_title="CalcThing", page_icon="logo.png")
+st.set_page_config(page_title="CalcThing", page_icon="logo.png", layout="wide")
 
 st.markdown("""
 <style>
