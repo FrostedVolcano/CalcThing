@@ -21,7 +21,7 @@ st.markdown("""
 unsafe_allow_html=True)
 
 st.header("CalcThing: Calculator for vaious things")
-st.write("Calculators and visualization for wye (Y) to delta (Δ) and delta (Δ) to wye (Y) circuits, voltage from voltage divider, current from parallel resistors, and many more coming!")
+st.write("Visual Calculators for wye (Y) to delta (Δ) and delta (Δ) to wye (Y) circuits, voltage from voltage divider, current from parallel resistors, and many more coming!")
 tab1, tab2 = st.tabs(["Wye(Y) to Delta(Δ)", " Delta(Δ) to Wye(Y)"])
 
 with tab1:
