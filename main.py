@@ -1,30 +1,15 @@
 import streamlit as st
 import schemdraw
 import schemdraw.elements as elm
-#from posthog import Posthog
+import streamlit.components.v1 as com
 
-#posthog = Posthog('phc_WqSMXohypdxpBdGEFrJBIcTwzn0f1yKauzKY6UbxJHg', host='https://us.i.posthog.com')
-
-st.set_page_config(page_title="CalcThing", page_icon="logo.png", layout="wide")
-
-st.html("""
-<head>
-<script>
-    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug getPageViewId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-    posthog.init('phc_WqSMXohypdxpBdGEFrJBIcTwzn0f1yKauzKY6UbxJHg', {
-        api_host:'https://us.i.posthog.com',
-        person_profiles: 'identified_only' // or 'always' to create profiles for anonymous users as well
-    })
-</script>
-</head>
-        """)
+st.set_page_config(page_title="CalcThing",page_icon="logo.png", layout="wide")
 
 st.markdown("""
 <style>
 	[data-testid="stDecoration"] {
 		display: none;
 	}
-
 </style>
 <style>
       .block-container {
@@ -40,7 +25,6 @@ st.write("Calculators for wye (Y) to delta (Δ) and delta (Δ) to wye (Y) circui
 tab1, tab2 = st.tabs(["Wye(Y) to Delta(Δ)", " Delta(Δ) to Wye(Y)"])
 
 with tab1:
-    @st.fragment()
     def draw_wye_circuit(res1, res2, res3):
         with schemdraw.Drawing() as d:
             d.config(unit=3, color="#37bd95")
@@ -65,24 +49,24 @@ with tab1:
             return svg_content
         
     st.subheader(" Wye (Y) to Delta (Δ) Circuit Converter")
-        
     col1, col2 = st.columns(2, gap='large')
-
+    
+   
     with col1:
         st.write("######")
         st.write("Input Wye (Y) Resistor Values:")
         # Draw Wye circuit
         cols1, cols2, cols3 = st.columns(3)
         with cols1:
-           res1 = st.number_input("Value of R1: ", min_value=0.0001, value=10.0, step=1.0)
+            res1 = st.number_input("Value of R1: ", min_value=0.0001, value=10.0, step=1.0)
         with cols2:
-           res2 = st.number_input("Value of R2: ", min_value=0.0001, value=10.0, step=1.0)
+            res2 = st.number_input("Value of R2: ", min_value=0.0001, value=10.0, step=1.0)
         with cols3:
-           res3 = st.number_input("Value of R3: ", min_value=0.0001, value=10.0, step=1.0)
+            res3 = st.number_input("Value of R3: ", min_value=0.0001, value=10.0, step=1.0)
             
         wye_circuit = draw_wye_circuit(res1, res2, res3)
         st.markdown(f'{wye_circuit.decode()}', unsafe_allow_html=True)
-        
+       
     with col2:
         # Draw Delta circuit
         denominator = res1 * res2 + res2 * res3 + res3 * res1
@@ -109,7 +93,6 @@ with tab1:
 
 
 with tab2:
-    @st.fragment()
     def draw_delta_circuit(r1, r2, r3):
         with schemdraw.Drawing() as d:
             d.config(unit=5, color="#37bd95")
@@ -133,11 +116,9 @@ with tab2:
             
             svg_content = d.get_imagedata('svg')
             return svg_content
-        
+ 
     st.subheader("Delta (Δ) to Wye (Y) Circuit Converter")
-
     col1, col2 = st.columns(2, gap='large')
-
     with col1:
         st.write("######")
         # Input Delta resistor values
@@ -161,7 +142,7 @@ with tab2:
         rb = round((r2 * r3) / r_sum, 4)
         rc = round((r3 * r1) / r_sum, 4)
     
-        # Draw Wye circuit
+    # Draw Wye circuit
         wye_circuit = draw_wye_circuit(ra, rb, rc)
         st.write("Wye (Y) Resistor Values:")
         st.write(f"R1 = {ra:.4f} Ω")
@@ -177,6 +158,18 @@ with tab2:
         st.latex(r"R_2 = \frac{R_b R_c}{R_a + R_b + R_c}")
         st.latex(r"R_3 = \frac{R_c R_a}{R_a + R_b + R_c}")
     frag2()
+    
+com.html("""
+<head>
+<script>
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug getPageViewId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_WqSMXohypdxpBdGEFrJBIcTwzn0f1yKauzKY6UbxJHg', {
+        api_host:'https://us.i.posthog.com',
+        person_profiles: 'identified_only' // or 'always' to create profiles for anonymous users as well
+    })
+</script>
+</head>
+        """, width=None, height=None)
     
         
          
