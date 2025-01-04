@@ -169,6 +169,7 @@ com.html("""
     })
 </script>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="cf7f0ed8-7e4e-4a27-8a02-c013fc8291b1"></script>
+<meta name="google-site-verification" content="UpK4x268-JAVGifEIIa0LG7x9OFnEFgoBqvRvdxio-E" />
 </head>
         """, width=None, height=None)
     
