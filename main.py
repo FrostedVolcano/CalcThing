@@ -21,7 +21,7 @@ st.markdown("""
 unsafe_allow_html=True)
 
 st.header("CalcThing: Calculator for vaious things")
-st.write("Calculators for wye (Y) to delta (Δ) and delta (Δ) to wye (Y) circuits, voltage from voltage divider, current from parallel resistors, and many more coming!")
+st.write("Calculators and visualization for wye (Y) to delta (Δ) and delta (Δ) to wye (Y) circuits, voltage from voltage divider, current from parallel resistors, and many more coming!")
 tab1, tab2 = st.tabs(["Wye(Y) to Delta(Δ)", " Delta(Δ) to Wye(Y)"])
 
 with tab1:
@@ -168,6 +168,7 @@ com.html("""
         person_profiles: 'identified_only' // or 'always' to create profiles for anonymous users as well
     })
 </script>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="cf7f0ed8-7e4e-4a27-8a02-c013fc8291b1"></script>
 </head>
         """, width=None, height=None)
     
