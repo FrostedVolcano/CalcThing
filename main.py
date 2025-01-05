@@ -21,6 +21,12 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+    <head>
+        <meta name="google-site-verification" content="UpK4x268-JAVGifEIIa0LG7x9OFnEFgoBqvRvdxio-E" />
+    </head>
+""", unsafe_allow_html=True)
+
 st.header("CalcThing: Calculator for various things")
 st.write("Visual Calculators for wye (Y) to delta (Δ) and delta (Δ) to wye (Y) circuits, voltage from voltage divider, current from parallel resistors, and many more coming!")
 
