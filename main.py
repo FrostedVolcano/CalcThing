@@ -2,17 +2,10 @@ import streamlit as st
 import schemdraw
 import schemdraw.elements as elm
 import streamlit.components.v1 as com
-import os
-from middleware import GoogleVerificationMiddleware
 
 # Set page config first, before any other Streamlit commands
 st.set_page_config(page_title="CalcThing", page_icon="logo.png", layout="wide")
 
-st.markdown("""
-    <head>
-        <meta name="google-site-verification" content="UpK4x268-JAVGifEIIa0LG7x9OFnEFgoBqvRvdxio-E" />
-    </head>
-""", unsafe_allow_html=True)
 # CSS to hide Streamlit's default decoration and adjust padding
 st.markdown("""
 <style>
@@ -28,10 +21,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-if os.environ.get('RENDER'):
-    # Only apply middleware when running on Render
-    import streamlit.web.bootstrap as bootstrap
-    bootstrap.run = GoogleVerificationMiddleware(bootstrap.run)
 
 st.header("CalcThing: Calculator for various things")
 st.write("Visual Calculators for wye (Y) to delta (Δ) and delta (Δ) to wye (Y) circuits, voltage from voltage divider, current from parallel resistors, and many more coming!")
@@ -164,11 +153,7 @@ def delta_to_wye_tab():
 
 def add_tracking():
     com.html("""
-    <head>
-    <!-- Google Site Verification -->
-    <meta name="google-site-verification" content="UpK4x268-JAVGifEIIa0LG7x9OFnEFgoBqvRvdxio-E" />
-    
-    <!-- PostHog Analytics -->
+    <head>  
     <script>
         !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetGroupPropertiesForFlags resetPersonPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug getPageViewId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
         posthog.init('phc_WqSMXohypdxpBdGEFrJBIcTwzn0f1yKauzKY6UbxJHg', {
@@ -176,8 +161,6 @@ def add_tracking():
             person_profiles: 'identified_only'
         })
     </script>
-    
-    <!-- Umami Analytics -->
     <script defer src="https://cloud.umami.is/script.js" data-website-id="cf7f0ed8-7e4e-4a27-8a02-c013fc8291b1"></script>
     </head>
     """, width=None, height=None)
