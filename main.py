@@ -2,10 +2,7 @@ import streamlit as st
 import schemdraw
 import schemdraw.elements as elm
 import streamlit.components.v1 as com
-import pathlib
-import logging
-from bs4 import BeautifulSoup
-import shutil
+
 
 # Set page config first, before any other Streamlit commands
 st.set_page_config(page_title="CalcThing", page_icon="logo.png", layout="wide")
