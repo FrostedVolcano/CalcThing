@@ -2,6 +2,8 @@ import streamlit as st
 import schemdraw
 import schemdraw.elements as elm
 import streamlit.components.v1 as com
+import os
+from middleware import GoogleVerificationMiddleware
 
 # Set page config first, before any other Streamlit commands
 st.set_page_config(page_title="CalcThing", page_icon="logo.png", layout="wide")
@@ -26,6 +28,10 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+if os.environ.get('RENDER'):
+    # Only apply middleware when running on Render
+    import streamlit.web.bootstrap as bootstrap
+    bootstrap.run = GoogleVerificationMiddleware(bootstrap.run)
 
 st.header("CalcThing: Calculator for various things")
 st.write("Visual Calculators for wye (Y) to delta (Δ) and delta (Δ) to wye (Y) circuits, voltage from voltage divider, current from parallel resistors, and many more coming!")
