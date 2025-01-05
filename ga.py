@@ -12,6 +12,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-MV9J8KVL');</script>
 <!-- End Google Tag Manager -->
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XQQQ8NSB2Y"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-XQQQ8NSB2Y');
+</script>
 """
 
 GA_NOSCRIPT = """
@@ -31,7 +40,7 @@ def inject_ga():
         else:
             shutil.copy(index_path, bck_index)  
         html = str(soup)
-        # Add script in head and noscript right after body tag
+        # Add scripts in head and noscript after body tag
         new_html = html.replace('<head>', '<head>\n' + GA_SCRIPT)
         new_html = new_html.replace('<body>', '<body>\n' + GA_NOSCRIPT)
         index_path.write_text(new_html)
