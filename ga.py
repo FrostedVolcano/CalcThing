@@ -30,6 +30,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 """
 
+SEO_TAGS = """
+<title>CalcThing</title>
+<meta name="description" content="Visual Calculators for wye (Y) to delta (Δ) and delta (Δ) to wye (Y) circuits, voltage from voltage divider, current from parallel resistors, and many more coming!">
+"""
+
 def inject_ga():
     index_path = pathlib.Path(st.__file__).parent / "static" / "index.html"
     soup = BeautifulSoup(index_path.read_text(), features="html.parser")
@@ -39,10 +44,18 @@ def inject_ga():
             shutil.copy(bck_index, index_path)  
         else:
             shutil.copy(index_path, bck_index)  
+        
         html = str(soup)
-        # Add scripts in head and noscript after body tag
-        new_html = html.replace('<head>', '<head>\n' + GA_SCRIPT)
+        
+        # Add all head content (analytics and SEO tags)
+        new_html = html.replace('<head>', '<head>\n' + SEO_TAGS + GA_SCRIPT)
+        
+        # Add noscript after body tag
         new_html = new_html.replace('<body>', '<body>\n' + GA_NOSCRIPT)
+        
+        # Remove any existing title tag (to avoid duplicates)
+        new_html = new_html.replace('<title>Streamlit</title>', '')
+        
         index_path.write_text(new_html)
 
 inject_ga()
