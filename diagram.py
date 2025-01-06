@@ -89,7 +89,7 @@ def draw_wye_circuit(res1, res2, res3):
 def draw_delta_circuit(resa, resb, resc):
     """Draw Delta circuit with proper encoding handling"""
     d = schemdraw.Drawing()
-    d.config(unit=5, color="##00cc00")
+    d.config(unit=5, color="#00cc00")
     start_point = (0, 0)
     r1 = d.add(elm.Resistor().up().at(start_point).label(f"Ra={resa:.4f}Ω", loc="top", ofst=.1).label("z", loc="right"))
     r2 = d.add(elm.Resistor().theta(-30).label(f"Rb={resb:.4f}Ω", loc="top", ofst=.3).label("x", loc="right"))
