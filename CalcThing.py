@@ -1,9 +1,8 @@
 import streamlit as st
 from calculation import current_divider_rule, voltage_divider_rule
 from diagram import draw_wye_circuit, draw_delta_circuit, draw_parallel_circuit, draw_series_circuit
-import schemdraw
-import schemdraw.elements as elm
 import streamlit.components.v1 as com
+from posthog import Posthog
 
 
 # Set page config first, before any other Streamlit commands
@@ -20,14 +19,21 @@ st.markdown("""
     .block-container {
         padding-top: 2rem;
         padding-bottom: 0rem;
+        max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
     }
 </style>
 """, unsafe_allow_html=True)
 
+posthog = Posthog(
+    api_key='phc_WqSMXohypdxpBdGEFrJBIcTwzn0f1yKauzKY6UbxJHg',
+    host='https://your-vercel-domain.vercel.app/ingest'
+)
+
 
 st.header("CalcThing: Calculator for various things")
 st.write("Visual Calculators for wye (Y) to delta (Δ) and delta (Δ) to wye (Y) circuits, voltage from voltage divider, current from parallel resistors, and many more coming!")
-
 
 def init_page():
     # Initialize session state for formulas if not exists
@@ -80,12 +86,8 @@ def wye_to_delta_tab():
         st.write(f"Rb = {resb:.4f} Ω")
         st.write(f"Rc = {resc:.4f} Ω")
         st.markdown(delta_circuit, unsafe_allow_html=True)
-    
-    if st.button("Show/Hide Formula", key="wye_formula_button"):
-        st.session_state.show_wye_formula = not st.session_state.show_wye_formula
-    
-    if st.session_state.show_wye_formula:
-        display_wye_to_delta_formula()
+
+    display_wye_to_delta_formula()
 
 def delta_to_wye_tab():
     st.subheader("Delta (Δ) to Wye (Y) Circuit Converter")
@@ -118,11 +120,7 @@ def delta_to_wye_tab():
         st.write(f"R3 = {rc:.4f} Ω")
         st.markdown(wye_circuit, unsafe_allow_html=True)
     
-    if st.button("Show/Hide Formula", key="delta_formula_button"):
-        st.session_state.show_delta_formula = not st.session_state.show_delta_formula
-    
-    if st.session_state.show_delta_formula:
-        display_delta_to_wye_formula()
+    display_delta_to_wye_formula()
         
 def current_divider_tab():
     # Streamlit app title
@@ -253,17 +251,7 @@ def voltage_divider_tab():
             st.error(f"Error: {e}")
 
 def add_tracking():
-    com.html("""
-    <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XQQQ8NSB2Y"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-XQQQ8NSB2Y');
-    </script>  
+    com.html("""  
     <script>
         !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetGroupPropertiesForFlags resetPersonPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug getPageViewId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
         posthog.init('phc_WqSMXohypdxpBdGEFrJBIcTwzn0f1yKauzKY6UbxJHg', {
@@ -271,7 +259,6 @@ def add_tracking():
             person_profiles: 'identified_only'
         })
     </script>
-    <script defer src="https://cloud.umami.is/script.js" data-website-id="cf7f0ed8-7e4e-4a27-8a02-c013fc8291b1"></script>
     </head>
     """, width=None, height=None)
     

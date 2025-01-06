@@ -3,7 +3,7 @@ import schemdraw.elements as elm
 
 def draw_series_circuit(voltage, resistor_count, resistances, voltages):
     d = schemdraw.Drawing()
-    d.config(unit=5, color='#ff0000')
+    d.config(unit=3, color='#ff6600')
 
     # Add a voltage source
     V = d.add(elm.SourceV().up().label(f'{round(voltage, 2)}V'))
@@ -38,7 +38,7 @@ def draw_series_circuit(voltage, resistor_count, resistances, voltages):
 
 def draw_parallel_circuit(current, resistor_count, resistances, currents):
     d = schemdraw.Drawing()
-    d.config(unit=5, color='#0000ff')
+    d.config(unit=3, color='#3366ff')
 
     # Add a current source
     C = d.add(elm.sources.SourceI().up().label(f'{round(current, 2)}A'))
@@ -78,7 +78,7 @@ def draw_wye_circuit(res1, res2, res3):
     center = d.add(elm.Dot())
     d.add(elm.Resistor().right().label(f"R1={res1:.4f}Ω", loc="top").label("x", loc="right"))
     d.add(elm.Resistor().theta(-120).at(center.start).label(f"R2={res2:.4f}Ω", loc="top").label("y", loc="left"))
-    d.add(elm.Resistor().theta(120).at(center.start).label(f"R3={res3:.4f}Ω", loc="bottom").label("z", loc="left"))
+    d.add(elm.Resistor().theta(120).at(center.start).label(f"R3={res3:.4f}Ω", loc="bottom").label("z", loc="left", ofst=.2))
     
     # Get SVG data and force UTF-8 encoding
     svg_data = d.get_imagedata('svg')
@@ -91,7 +91,7 @@ def draw_delta_circuit(resa, resb, resc):
     d = schemdraw.Drawing()
     d.config(unit=5, color="#00cc00")
     start_point = (0, 0)
-    r1 = d.add(elm.Resistor().up().at(start_point).label(f"Ra={resa:.4f}Ω", loc="top", ofst=.1).label("z", loc="right"))
+    r1 = d.add(elm.Resistor().up().at(start_point).label(f"Ra={resa:.4f}Ω", loc="top").label("z", loc="right", ofst=.2))
     r2 = d.add(elm.Resistor().theta(-30).label(f"Rb={resb:.4f}Ω", loc="top", ofst=.3).label("x", loc="right"))
     r3 = d.add(elm.Resistor().theta(-150).label(f"Rc={resc:.4f}Ω", loc="bottom", ofst=.3).label("y", loc="left"))
     d.add(elm.Line().at(r3.end).to(r1.start))

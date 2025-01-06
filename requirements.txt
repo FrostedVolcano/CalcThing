@@ -1,3 +1,4 @@
 streamlit==1.41.1
 schemdraw==0.19
 bs4==0.0.2
+posthog==3.7.5
