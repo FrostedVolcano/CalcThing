@@ -34,6 +34,9 @@ SEO_TAGS = """
 <title>CalcThing - Visual Calculator for Engineering & Physics</title>
 <meta name="description" content="Interactive visual calculator for engineering and physics. Calculate and visualize circuits, fluid mechanics, and more in real-time. Features include Wye-Delta conversion, voltage dividers, current dividers, and fluid dynamics calculations.">
 
+<!-- Google AdSense -->
+<meta name="google-adsense-account" content="ca-pub-6414688600235144">
+
 <!-- Additional SEO meta tags -->
 <meta name="keywords" content="visual calculator, engineering calculator, physics calculator, circuit calculator, fluid mechanics, wye-delta conversion, voltage divider, current divider, real-time visualization, engineering tools">
 <meta name="author" content="CalcThing">
