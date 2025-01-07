@@ -48,14 +48,15 @@ SEO_TAGS = """
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="CalcThing">
 
-<!-- Twitter Card tags -->
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CalcThing - Visual Calculator for Engineering & Physics">
-<meta name="twitter:description" content="Interactive visual calculator for engineering and physics. Calculate and visualize circuits, fluid mechanics, and more in real-time.">
+<meta name="description" content="Free online file converter supporting CSV, Excel, and PDF conversions. Convert between CSV, Excel, and PDF formats easily.">
+<meta name="keywords" content="file converter, CSV to Excel, Excel to CSV, CSV to PDF, PDF to CSV, Excel to PDF, PDF to Excel, document conversion, file format converter">
+<meta name="author" content="Your Name">
 
-<!-- Viewport and charset tags -->
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Open Graph meta tags for social media -->
+<meta property="og:title" content="File Format Converter - CSV, Excel & PDF">
+<meta property="og:description" content="Free online tool to convert between CSV, Excel, and PDF formats. Easy file conversion with multiple format support.">
+<meta property="og:type" content="Calcthing">
+<meta property="og:url" content="calcthing.onrender.com">
 """
 
 G_ADDS=""""
