@@ -49,7 +49,7 @@ def main():
         st.write("Select any tab to begin")
         st.write("###")
     
-    if selected == "Circuits":
+    if selected == "Circuits Tools":
         tab1, tab2, tab3, tab4 = st.tabs(["Wye(Y) to Delta(Δ)", "Delta(Δ) to Wye(Y)", "Current Divider Rule", "Voltage Divider Rule"])
         with tab1:
             wye_to_delta_tab()
@@ -60,7 +60,7 @@ def main():
         with tab4:
             voltage_divider_tab()
            
-    if selected == "Utilities":
+    if selected == "File Coverters":
         tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["CSV to Excel","Excel to CSV", "CSV to Pdf", "Pdf to CSV", "Excel to Pdf", "Pdf to Excel"])
 
         with tab1:
