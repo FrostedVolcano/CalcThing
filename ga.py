@@ -31,8 +31,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 """
 
 SEO_TAGS = """
-<title>CalcThing</title>
-<meta name="description" content="Visual Calculators for wye (Y) to delta (Δ) and delta (Δ) to wye (Y) circuits, voltage from voltage divider, current from parallel resistors, and many more coming!">
+<title>CalcThing - Visual Calculator for Engineering & Physics</title>
+<meta name="description" content="Interactive visual calculator for engineering and physics. Calculate and visualize circuits, fluid mechanics, and more in real-time. Features include Wye-Delta conversion, voltage dividers, current dividers, and fluid dynamics calculations.">
+
+<!-- Additional SEO meta tags -->
+<meta name="keywords" content="visual calculator, engineering calculator, physics calculator, circuit calculator, fluid mechanics, wye-delta conversion, voltage divider, current divider, real-time visualization, engineering tools">
+<meta name="author" content="CalcThing">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph tags for social media -->
+<meta property="og:title" content="CalcThing - Visual Calculator for Engineering & Physics">
+<meta property="og:description" content="Interactive visual calculator for engineering and physics. Calculate and visualize circuits, fluid mechanics, and more in real-time.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CalcThing">
+
+<!-- Twitter Card tags -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CalcThing - Visual Calculator for Engineering & Physics">
+<meta name="twitter:description" content="Interactive visual calculator for engineering and physics. Calculate and visualize circuits, fluid mechanics, and more in real-time.">
+
+<!-- Viewport and charset tags -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 """
 
 def inject_ga():
