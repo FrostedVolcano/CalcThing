@@ -41,7 +41,7 @@ posthog = Posthog('phc_WqSMXohypdxpBdGEFrJBIcTwzn0f1yKauzKY6UbxJHg', host='https
 
 
 def main():
-    selected = option_menu(menu_title=None, options=["Home", "Circuit Tools", "Filve Coverters"], icons= ["house", "activity", "file-earmark-bar-graph"], 
+    selected = option_menu(menu_title=None, options=["Home", "Circuit Tools", "File Coverters"], icons= ["house", "activity", "file-earmark-bar-graph"], 
                            default_index=0,orientation="horizontal",)
     
     if selected == "Home":
