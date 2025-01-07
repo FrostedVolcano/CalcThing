@@ -49,7 +49,7 @@ def main():
         st.write("Select any tab to begin")
         st.write("###")
     
-    if selected == "Circuits Tools":
+    if selected == "Circuit Tools":
         tab1, tab2, tab3, tab4 = st.tabs(["Wye(Y) to Delta(Δ)", "Delta(Δ) to Wye(Y)", "Current Divider Rule", "Voltage Divider Rule"])
         with tab1:
             wye_to_delta_tab()
