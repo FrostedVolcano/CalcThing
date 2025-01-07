@@ -2,3 +2,6 @@ streamlit==1.41.1
 schemdraw==0.19
 bs4==0.0.2
 posthog==3.7.5
+pandas==2.2.3
+reportlab==4.2.5
+pdfplumber==0.11.5
