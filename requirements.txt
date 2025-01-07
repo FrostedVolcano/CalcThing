@@ -5,3 +5,4 @@ posthog==3.7.5
 pandas==2.2.3
 reportlab==4.2.5
 pdfplumber==0.11.5
+streamlit-option-menu==0.4.0
