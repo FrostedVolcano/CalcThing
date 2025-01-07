@@ -1,15 +1,22 @@
 import streamlit as st
-from posthog import Posthog
-from current_divider import current_divider_tab
-from voltage_divider import voltage_divider_tab
-from wye_to_delta import wye_to_delta_tab
-from delta_to_wye import delta_to_wye_tab
 import streamlit.components.v1 as components
+from posthog import Posthog
+from streamlit_option_menu import option_menu
 
+from Circuits.current_divider import current_divider_tab
+from Circuits.voltage_divider import voltage_divider_tab
+from Circuits.wye_to_delta import wye_to_delta_tab
+from Circuits.delta_to_wye import delta_to_wye_tab
+
+from FileConv.csv_to_excel import csv_to_excel_tab
+from FileConv.csv_to_pdf import csv_to_pdf_tab
+from FileConv.excel_to_pdf import excel_to_pdf_tab
+from FileConv.excel_to_csv import excel_to_csv_tab
+from FileConv.pdf_to_csv import pdf_to_csv_tab
+from FileConv.pdf_to_excel import pdf_to_excel_tab
 
 # Set page config first, before any other Streamlit commands
 st.set_page_config(page_title="CalcThing", page_icon="logo.png", layout="wide")
-
 
 st.markdown("""
 <style>
@@ -19,7 +26,7 @@ st.markdown("""
 </style>
 <style>
     .block-container {
-        padding-top: 2rem;
+        padding-top: 5rem;
         padding-bottom: 0rem;
         max-width: 90%;
         margin-left: auto;
@@ -32,29 +39,48 @@ st.markdown("""
 posthog = Posthog('phc_WqSMXohypdxpBdGEFrJBIcTwzn0f1yKauzKY6UbxJHg', host='https://us.i.posthog.com')
 
 
-st.header("CalcThing: Calculator for various things")
-st.write("Visual Calculators for wye (Y) to delta (Δ) and delta (Δ) to wye (Y) circuits, voltage from voltage divider, current from parallel resistors, and many more coming!")
-
 
 def main():
-    # Create tabs
-    tab1, tab2, tab3, tab4 = st.tabs(["Wye(Y) to Delta(Δ)", "Delta(Δ) to Wye(Y)", "Current Divider Rule", "Voltage Divider Rule"])
+    selected = option_menu(menu_title=None, options=["Home", "Circuit Tools", "Filve Coverters"], icons= ["house", "activity", "file-earmark-bar-graph"], 
+                           default_index=0,orientation="horizontal",)
     
-    # Render content based on active tab
-    with tab1:
-        wye_to_delta_tab()
+    if selected == "Home":
+        st.header("CalcThing: Calculator for various things")
+        st.write("Select any tab to begin")
+        st.write("###")
     
-    with tab2:
-        delta_to_wye_tab()
+    if selected == "Circuits":
+        tab1, tab2, tab3, tab4 = st.tabs(["Wye(Y) to Delta(Δ)", "Delta(Δ) to Wye(Y)", "Current Divider Rule", "Voltage Divider Rule"])
+        with tab1:
+            wye_to_delta_tab()
+        with tab2:
+            delta_to_wye_tab()
+        with tab3:
+            current_divider_tab()        
+        with tab4:
+            voltage_divider_tab()
+           
+    if selected == "Utilities":
+        tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["CSV to Excel","Excel to CSV", "CSV to Pdf", "Pdf to CSV", "Excel to Pdf", "Pdf to Excel"])
+
+        with tab1:
+            csv_to_excel_tab()
+        with tab2:
+            excel_to_csv_tab()
+        with tab3:
+            csv_to_pdf_tab()
+        with tab4:
+            pdf_to_csv_tab()
+        with tab5:
+            excel_to_pdf_tab()
+        with tab6:
+            pdf_to_excel_tab()
         
-    with tab3:
-        current_divider_tab()
-        
-    with tab4:
-        voltage_divider_tab()
+    
     
 if __name__ == "__main__":
     main()
+    
     
 # Keep this part at the end.
 components.html("""

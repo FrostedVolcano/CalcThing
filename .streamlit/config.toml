@@ -1,5 +1,7 @@
 [theme]
 base="dark"
-primaryColor="#66ffcc"
-backgroundColor="#181818"
-secondaryBackgroundColor="#3b3b3b"
+primaryColor="#1e80b7"
+backgroundColor="#1c1c1c"
+secondaryBackgroundColor="#272a2b"
+
+font = "Roboto"

@@ -3,3 +3,4 @@ echo ".env" >> .gitignore
 git rm --cached .env
 echo "CalcThing.code-workspace" >> .gitignore
 git rm --cached CalcThing.code-workspace
+__pycache__
