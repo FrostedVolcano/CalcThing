@@ -122,3 +122,4 @@ def logos():
             <meta property="og:image" content="logo_180x180.png">
         </head>
     ''', unsafe_allow_html=True)
+logos()
