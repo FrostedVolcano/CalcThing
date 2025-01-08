@@ -95,10 +95,8 @@ def main():
         with tab6:
             pdf_to_excel_tab()
         
+main()
     
-    
-if __name__ == "__main__":
-    main()
     
     
 # Keep this part at the end.
