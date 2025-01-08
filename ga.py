@@ -32,7 +32,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 """
 
 SEO_TAGS = """
-<title>CalcThing - Visual Calculator for Engineering & Physics</title>
+<title>CalcThing - Circuit calculator with visualization and file format conversion</title>
 <meta name="description" content="Interactive visual calculator for engineering and physics. Calculate and visualize circuits, fluid mechanics, and more in real-time. Features include Wye-Delta conversion, voltage dividers, current dividers, and fluid dynamics calculations.">
 
 <!-- Google AdSense -->
