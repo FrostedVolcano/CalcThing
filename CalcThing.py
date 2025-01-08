@@ -16,7 +16,7 @@ from FileConv.pdf_to_csv import pdf_to_csv_tab
 from FileConv.pdf_to_excel import pdf_to_excel_tab
 
 # Set page config first, before any other Streamlit commands
-st.set_page_config(page_title="CalcThing", page_icon="logo.png", layout="wide")
+st.set_page_config(page_title="CalcThing", page_icon="logo.ico", layout="wide")
 
 st.markdown("""
 <style>
@@ -110,3 +110,14 @@ components.html("""
 </script>
 </head>
     """)
+
+st.markdown('''
+    <head>
+        <link rel="shortcut icon" href="logo.ico" type="image/x-icon">
+        <link rel="icon" href="logo.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="180x180" href="logo_180x180.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="logo_32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="logo_16x16.png">
+        <meta property="og:image" content="logo_180x180.png">
+    </head>
+''', unsafe_allow_html=True)
