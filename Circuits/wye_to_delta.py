@@ -34,7 +34,7 @@ def draw_delta_circuit(resa, resb, resc):
         return svg_data.decode('utf-8', errors='ignore')
     return svg_data
 
-
+@st.cache_resource()
 def display_wye_to_delta_formula():
     st.write("#")
     st.subheader("Formula used:")
