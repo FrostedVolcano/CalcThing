@@ -30,7 +30,7 @@ def voltage_divider_rule(voltage, connection_type='series', *resistance):
 
 def draw_series_circuit(voltage, resistor_count, resistances, voltages):
     d = schemdraw.Drawing()
-    d.config(unit=2.5, color='#00cc00')
+    d.config(unit=2.5, color='#00cc00', bgcolor='none')
 
     # Add a voltage source
     V = d.add(elm.SourceV().up().label(f'{round(voltage, 2)}V'))
