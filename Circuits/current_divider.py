@@ -24,7 +24,7 @@ def current_divider_rule(current, connection_type='parallel', *resistance):
 
 def draw_parallel_circuit(current, resistor_count, resistances, currents):
     d = schemdraw.Drawing()
-    d.config(unit=3, color='#ff6600')
+    d.config(unit=2.5, color='#00cc00')
 
     # Add a current source
     C = d.add(elm.sources.SourceI().up().label(f'{round(current, 2)}A'))

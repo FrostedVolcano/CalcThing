@@ -59,25 +59,6 @@ SEO_TAGS = """
 <meta property="og:url" content="calcthing.onrender.com">
 """
 
-G_ADDS=""""
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6414688600235144"
-     crossorigin="anonymous"></script>
-"""
-G_BADS="""
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6414688600235144"
-     crossorigin="anonymous"></script>
-<!-- display add -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-6414688600235144"
-     data-ad-slot="4324023892"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-"""
-
 def inject_ga():
     index_path = pathlib.Path(st.__file__).parent / "static" / "index.html"
     soup = BeautifulSoup(index_path.read_text(), features="html.parser")
@@ -91,10 +72,10 @@ def inject_ga():
         html = str(soup)
         
         # Add all head content (analytics and SEO tags)
-        new_html = html.replace('<head>', '<head>\n' + SEO_TAGS + GA_SCRIPT + G_ADDS)
+        new_html = html.replace('<head>', '<head>\n' + SEO_TAGS + GA_SCRIPT)
         
         # Add noscript after body tag
-        new_html = new_html.replace('<body>', '<body>\n' + GA_NOSCRIPT + G_BADS)
+        new_html = new_html.replace('<body>', '<body>\n' + GA_NOSCRIPT)
         
         # Remove any existing title tag (to avoid duplicates)
         new_html = new_html.replace('<title>Streamlit</title>', '')
