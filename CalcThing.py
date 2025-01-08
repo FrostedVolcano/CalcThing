@@ -36,6 +36,7 @@ def top_bar():
         }
     </style>
     """, unsafe_allow_html=True)
+top_bar()
 
 posthog = Posthog('phc_79RpiYGOIeOrJuM1gdxQtT2aQHwltOyLPRd6V1ZrRq6', host='https://us.i.posthog.com')
 
