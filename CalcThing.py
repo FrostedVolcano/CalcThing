@@ -107,7 +107,7 @@ components.html("""
         posthog.init('phc_79RpiYGOIeOrJuM1gdxQtT2aQHwltOyLPRd6V1ZrRq6', {api_host: 'https://us.i.posthog.com'})
     </script>
     </head>
-    """)
+""")
 
 st.markdown('''
     <head>
