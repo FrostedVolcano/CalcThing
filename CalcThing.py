@@ -18,26 +18,28 @@ from FileConv.pdf_to_excel import pdf_to_excel_tab
 # Set page config first, before any other Streamlit commands
 st.set_page_config(page_title="CalcThing", page_icon="logo.ico", layout="wide")
 
-st.markdown("""
-<style>
-    [data-testid="stDecoration"] {
-        display: none;
-    }
-</style>
-<style>
-    .block-container {
-        padding-top: 3rem;
-        padding-bottom: 0rem;
-        max-width: 90%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-</style>
-""", unsafe_allow_html=True)
+@st.cache_resource()
+def top_bar():
+    st.markdown("""
+    <style>
+        [data-testid="stDecoration"] {
+            display: none;
+        }
+    </style>
+    <style>
+        .block-container {
+            padding-top: 3rem;
+            padding-bottom: 0rem;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    """, unsafe_allow_html=True)
 
 posthog = Posthog('phc_79RpiYGOIeOrJuM1gdxQtT2aQHwltOyLPRd6V1ZrRq6', host='https://us.i.posthog.com')
 
-
+@st.fragment()
 def main():
     selected = option_menu(menu_title=None, options=["Home", "Circuits Page", "File Coverters"], icons= ["house", "activity", "file-earmark-bar-graph"], 
                            default_index=0,orientation="horizontal", menu_icon="cast")
@@ -109,13 +111,15 @@ components.html("""
     </head>
 """)
 
-st.markdown('''
-    <head>
-        <link rel="shortcut icon" href="logo.ico" type="image/x-icon">
-        <link rel="icon" href="logo.ico" type="image/x-icon">
-        <link rel="apple-touch-icon" sizes="180x180" href="logo_180x180.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="logo_32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="logo_16x16.png">
-        <meta property="og:image" content="logo_180x180.png">
-    </head>
-''', unsafe_allow_html=True)
+@st.fragment()
+def logos():
+    st.markdown('''
+        <head>
+            <link rel="shortcut icon" href="logo.ico" type="image/x-icon">
+            <link rel="icon" href="logo.ico" type="image/x-icon">
+            <link rel="apple-touch-icon" sizes="180x180" href="logo_180x180.png">
+            <link rel="icon" type="image/png" sizes="32x32" href="logo_32x32.png">
+            <link rel="icon" type="image/png" sizes="16x16" href="logo_16x16.png">
+            <meta property="og:image" content="logo_180x180.png">
+        </head>
+    ''', unsafe_allow_html=True)
