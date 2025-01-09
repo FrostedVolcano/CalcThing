@@ -38,7 +38,6 @@ def load_circuit_modules():
     from Circuits.voltage_divider import voltage_divider_tab
     from Circuits.wye_to_delta import wye_to_delta_tab
     from Circuits.delta_to_wye import delta_to_wye_tab
-    gc.collect()  # Force garbage collection after imports
     return current_divider_tab, voltage_divider_tab, wye_to_delta_tab, delta_to_wye_tab
 
 @st.fragment()
@@ -49,7 +48,6 @@ def load_fileconv_modules():
     from FileConv.excel_to_csv import excel_to_csv_tab
     from FileConv.pdf_to_csv import pdf_to_csv_tab
     from FileConv.pdf_to_excel import pdf_to_excel_tab
-    gc.collect()  # Force garbage collection after loading
     return csv_to_excel_tab, csv_to_pdf_tab, excel_to_pdf_tab, excel_to_csv_tab, pdf_to_csv_tab, pdf_to_excel_tab
 
 
