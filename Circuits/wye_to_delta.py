@@ -2,7 +2,6 @@ import streamlit as st
 import schemdraw
 import schemdraw.elements as elm
 
-@st.cache_data
 def draw_wye_circuit(res1, res2, res3):
     """Draw Wye circuit with proper encoding handling"""
     d = schemdraw.Drawing()
@@ -18,7 +17,6 @@ def draw_wye_circuit(res1, res2, res3):
         return svg_data.decode('utf-8', errors='ignore')
     return svg_data
 
-@st.cache_data
 def draw_delta_circuit(resa, resb, resc):
     """Draw Delta circuit with proper encoding handling"""
     d = schemdraw.Drawing()
@@ -35,7 +33,7 @@ def draw_delta_circuit(resa, resb, resc):
         return svg_data.decode('utf-8', errors='ignore')
     return svg_data
 
-@st.cache_resource()
+@st.fragment()
 def display_wye_to_delta_formula():
     st.write("#")
     st.subheader("Formula used:")
@@ -43,7 +41,7 @@ def display_wye_to_delta_formula():
     st.latex(r"R_b = \frac{R_1 R_2 + R_2 R_3 + R_3 R_1}{R_2}")
     st.latex(r"R_c = \frac{R_1 R_2 + R_2 R_3 + R_3 R_1}{R_3}")
 
-
+@st.fragment()
 def wye_to_delta_tab():
     st.subheader("Wye (Y) to Delta (Δ) Circuit Converter")
     col1, col2 = st.columns(2, gap='large')

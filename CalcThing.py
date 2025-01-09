@@ -7,7 +7,7 @@ from streamlit_option_menu import option_menu
 # Set page config first, before any other Streamlit commands
 st.set_page_config(page_title="CalcThing", page_icon="logo.ico", layout="wide")
 
-@st.cache_resource()
+@st.fragment()
 def top_bar():
     st.markdown("""
     <style>
@@ -30,6 +30,7 @@ top_bar()
 posthog = Posthog('phc_79RpiYGOIeOrJuM1gdxQtT2aQHwltOyLPRd6V1ZrRq6', host='https://us.i.posthog.com')
 
 # Only import modules when needed
+@st.fragment()
 def load_circuit_modules():
     import gc
     from Circuits.current_divider import current_divider_tab
@@ -39,6 +40,7 @@ def load_circuit_modules():
     gc.collect()  # Force garbage collection after imports
     return current_divider_tab, voltage_divider_tab, wye_to_delta_tab, delta_to_wye_tab
 
+@st.fragment()
 def load_fileconv_modules():
     from FileConv.csv_to_excel import csv_to_excel_tab
     from FileConv.csv_to_pdf import csv_to_pdf_tab
@@ -50,67 +52,76 @@ def load_fileconv_modules():
     return csv_to_excel_tab, csv_to_pdf_tab, excel_to_pdf_tab, excel_to_csv_tab, pdf_to_csv_tab, pdf_to_excel_tab
 
 
-@st.fragment()
 def main():
     selected = option_menu(menu_title=None, options=["Home", "Circuits Page", "File Coverters"], icons= ["house", "activity", "file-earmark-bar-graph"], 
                            default_index=0,orientation="horizontal", menu_icon="cast")
     
     if selected == "Home":
-        st.header("CalcThing: Calculators and File Converters for Engineering & Physics")
-        st.write("#####")
-        
-        cl1, cl2 = st.columns(2, gap="large")
-        with cl1:
-            st.subheader("Circuits Page: Circuit Calculators and Converters with their schematics")
-            st.write("""
-                - Delta (Δ) to Wye (Y) Circuits and vise versa.
-                - Calculate voltage divider circuit.
-                - Calculate current divider circuit.
-                - Calculate LED current limiter resistor values.
-                 """)
-        with cl2:
-            st.subheader("File Converters: File Converters for popular engineering file formats")
-            st.write("""
-                - Convert .csv files to .xlsx files.
-                - Convert .csv files to .pdf files.
-                - Convert .xlsx files to .csv files.
-                - Convert .csv files to .pdf files.
-                - Convert .pdf files to .csv files.
-                - Convert .pdf files to .xlsx files.
-                """)
+        @st.fragment()
+        def home():
+            st.header("CalcThing: Calculators and File Converters for Engineering & Physics")
+            st.write("#####")
+            
+            cl1, cl2 = st.columns(2, gap="large")
+            with cl1:
+                st.subheader("Circuits Page: Circuit Calculators and Converters with their schematics")
+                st.write("""
+                    - Delta (Δ) to Wye (Y) Circuits and vise versa.
+                    - Calculate voltage divider circuit.
+                    - Calculate current divider circuit.
+                    - Calculate LED current limiter resistor values.
+                     """)
+            with cl2:
+                st.subheader("File Converters: File Converters for popular engineering file formats")
+                st.write("""
+                    - Convert .csv files to .xlsx files.
+                    - Convert .csv files to .pdf files.
+                    - Convert .xlsx files to .csv files.
+                    - Convert .csv files to .pdf files.
+                    - Convert .pdf files to .csv files.
+                    - Convert .pdf files to .xlsx files.
+                    """)
+        home()
 
     
     if selected == "Circuits Page":
-        placeholder = st.empty()  # Add placeholder for dynamic content
-        with placeholder.container():
-            tab1, tab2, tab3, tab4 = st.tabs(["**Wye(Y) to Delta(Δ)**", "**Delta(Δ) to Wye(Y)**", "**Current Divider Rule**", "**Voltage Divider Rule**"])
-            current_divider_tab, voltage_divider_tab, wye_to_delta_tab, delta_to_wye_tab = load_circuit_modules()
-            with tab1:
-                wye_to_delta_tab()
-            with tab2:
-                delta_to_wye_tab()
-            with tab3:
-                current_divider_tab()
-            with tab4:
-                voltage_divider_tab()
+        @st.fragment()
+        def circuits():
+            placeholder = st.empty()  # Add placeholder for dynamic content
+            with placeholder.container():
+                tab1, tab2, tab3, tab4 = st.tabs(["**Wye(Y) to Delta(Δ)**", "**Delta(Δ) to Wye(Y)**", "**Current Divider Rule**", "**Voltage Divider Rule**"])
+                current_divider_tab, voltage_divider_tab, wye_to_delta_tab, delta_to_wye_tab = load_circuit_modules()
+                with tab1:
+                    wye_to_delta_tab()
+                with tab2:
+                    delta_to_wye_tab()
+                with tab3:
+                    current_divider_tab()
+                with tab4:
+                    voltage_divider_tab()
+        circuits()
            
     if selected == "File Coverters":
-        placeholder = st.empty()
-        with placeholder.container():
-            tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["**CSV to Excel**","**Excel to CSV**", "**CSV to Pdf**", "**Pdf to CSV**", "**Excel to Pdf**", "**Pdf to Excel**"])
-            csv_to_excel_tab, csv_to_pdf_tab, excel_to_pdf_tab, excel_to_csv_tab, pdf_to_csv_tab, pdf_to_excel_tab = load_fileconv_modules()
-            with tab1:
-                csv_to_excel_tab()
-            with tab2:
-                excel_to_csv_tab()
-            with tab3:
-                csv_to_pdf_tab()
-            with tab4:
-                pdf_to_csv_tab()
-            with tab5:
-                excel_to_pdf_tab()
-            with tab6:
-                pdf_to_excel_tab()     
+        @st.fragment()
+        def fileconv():
+            placeholder = st.empty()
+            with placeholder.container():
+                tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["**CSV to Excel**","**Excel to CSV**", "**CSV to Pdf**", "**Pdf to CSV**", "**Excel to Pdf**", "**Pdf to Excel**"])
+                csv_to_excel_tab, csv_to_pdf_tab, excel_to_pdf_tab, excel_to_csv_tab, pdf_to_csv_tab, pdf_to_excel_tab = load_fileconv_modules()
+                with tab1:
+                    csv_to_excel_tab()
+                with tab2:
+                    excel_to_csv_tab()
+                with tab3:
+                    csv_to_pdf_tab()
+                with tab4:
+                    pdf_to_csv_tab()
+                with tab5:
+                    excel_to_pdf_tab()
+                with tab6:
+                    pdf_to_excel_tab()
+        fileconv()
+        
 main()
        
 # Keep this part at the end.

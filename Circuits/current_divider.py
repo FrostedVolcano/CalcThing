@@ -2,7 +2,6 @@ import streamlit as st
 import schemdraw
 import schemdraw.elements as elm
 
-@st.cache_data
 def eq_resistance(connection_type, *args):
     if connection_type == 'series':
         return sum(args)
@@ -12,7 +11,6 @@ def eq_resistance(connection_type, *args):
     else:
         raise ValueError("Invalid connection type. Choose 'series' or 'parallel'.")
 
-@st.cache_data
 def current_divider_rule(current, connection_type='parallel', *resistance):
     resistance_all = eq_resistance('parallel', *resistance)
 
@@ -24,7 +22,6 @@ def current_divider_rule(current, connection_type='parallel', *resistance):
     else:
         raise ValueError("Invalid Connection Type.")
 
-@st.cache_data
 def draw_parallel_circuit(current, resistor_count, resistances, currents):
     d = schemdraw.Drawing()
     d.config(unit=2.5, color='#00cc00', bgcolor='none')
@@ -60,7 +57,7 @@ def draw_parallel_circuit(current, resistor_count, resistances, currents):
     return svg_data
     
 
-
+@st.fragment()
 def current_divider_tab():
     # Streamlit app title
     st.title("Interactive Current Divider Circuit")
