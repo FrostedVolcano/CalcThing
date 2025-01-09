@@ -124,9 +124,10 @@ def main():
 main()
 
 @st.fragment()
-def button():
+def bumecofi():
     button(username="calcthing", width=220, font_color="#FFDD00", coffee_color="#FFDD00", bg_color="#1c1c1c" )
-button()
+bumecofi()
+
        
 # Keep this part at the end.
 components.html("""
