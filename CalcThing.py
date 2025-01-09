@@ -85,7 +85,6 @@ def main():
         with placeholder.container():
             tab1, tab2, tab3, tab4 = st.tabs(["**Wye(Y) to Delta(Δ)**", "**Delta(Δ) to Wye(Y)**", "**Current Divider Rule**", "**Voltage Divider Rule**"])
             current_divider_tab, voltage_divider_tab, wye_to_delta_tab, delta_to_wye_tab = load_circuit_modules()
-            gc.collect()  # Force garbage collection after loading modules
             with tab1:
                 wye_to_delta_tab()
             with tab2:
