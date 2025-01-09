@@ -2,6 +2,7 @@ import streamlit as st
 import schemdraw
 import schemdraw.elements as elm
 
+@st.cache_data
 def eq_resistance(connection_type, *args):
     if connection_type == 'series':
         return sum(args)
@@ -11,6 +12,7 @@ def eq_resistance(connection_type, *args):
     else:
         raise ValueError("Invalid connection type. Choose 'series' or 'parallel'.")
 
+@st.cache_data
 def voltage_divider_rule(voltage, connection_type='series', *resistance):
     """ Takes input voltage, connection_type and all the resistances.
 
@@ -27,7 +29,7 @@ def voltage_divider_rule(voltage, connection_type='series', *resistance):
     else:
         raise ValueError("Invalid connection type.")
 
-
+@st.cache_data
 def draw_series_circuit(voltage, resistor_count, resistances, voltages):
     d = schemdraw.Drawing()
     d.config(unit=2.5, color='#00cc00', bgcolor='none')

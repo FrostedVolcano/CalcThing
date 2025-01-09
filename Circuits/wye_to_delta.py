@@ -2,6 +2,7 @@ import streamlit as st
 import schemdraw
 import schemdraw.elements as elm
 
+@st.cache_data
 def draw_wye_circuit(res1, res2, res3):
     """Draw Wye circuit with proper encoding handling"""
     d = schemdraw.Drawing()
@@ -17,7 +18,7 @@ def draw_wye_circuit(res1, res2, res3):
         return svg_data.decode('utf-8', errors='ignore')
     return svg_data
 
-
+@st.cache_data
 def draw_delta_circuit(resa, resb, resc):
     """Draw Delta circuit with proper encoding handling"""
     d = schemdraw.Drawing()

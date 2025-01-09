@@ -1,19 +1,8 @@
 import streamlit as st
 import streamlit.components.v1 as components
+import gc
 from posthog import Posthog
 from streamlit_option_menu import option_menu
-
-from Circuits.current_divider import current_divider_tab
-from Circuits.voltage_divider import voltage_divider_tab
-from Circuits.wye_to_delta import wye_to_delta_tab
-from Circuits.delta_to_wye import delta_to_wye_tab
-
-from FileConv.csv_to_excel import csv_to_excel_tab
-from FileConv.csv_to_pdf import csv_to_pdf_tab
-from FileConv.excel_to_pdf import excel_to_pdf_tab
-from FileConv.excel_to_csv import excel_to_csv_tab
-from FileConv.pdf_to_csv import pdf_to_csv_tab
-from FileConv.pdf_to_excel import pdf_to_excel_tab
 
 # Set page config first, before any other Streamlit commands
 st.set_page_config(page_title="CalcThing", page_icon="logo.ico", layout="wide")
@@ -39,6 +28,27 @@ def top_bar():
 top_bar()
 
 posthog = Posthog('phc_79RpiYGOIeOrJuM1gdxQtT2aQHwltOyLPRd6V1ZrRq6', host='https://us.i.posthog.com')
+
+# Only import modules when needed
+def load_circuit_modules():
+    import gc
+    from Circuits.current_divider import current_divider_tab
+    from Circuits.voltage_divider import voltage_divider_tab
+    from Circuits.wye_to_delta import wye_to_delta_tab
+    from Circuits.delta_to_wye import delta_to_wye_tab
+    gc.collect()  # Force garbage collection after imports
+    return current_divider_tab, voltage_divider_tab, wye_to_delta_tab, delta_to_wye_tab
+
+def load_fileconv_modules():
+    from FileConv.csv_to_excel import csv_to_excel_tab
+    from FileConv.csv_to_pdf import csv_to_pdf_tab
+    from FileConv.excel_to_pdf import excel_to_pdf_tab
+    from FileConv.excel_to_csv import excel_to_csv_tab
+    from FileConv.pdf_to_csv import pdf_to_csv_tab
+    from FileConv.pdf_to_excel import pdf_to_excel_tab
+    gc.collect()  # Force garbage collection after loading
+    return csv_to_excel_tab, csv_to_pdf_tab, excel_to_pdf_tab, excel_to_csv_tab, pdf_to_csv_tab, pdf_to_excel_tab
+
 
 @st.fragment()
 def main():
@@ -71,35 +81,39 @@ def main():
 
     
     if selected == "Circuits Page":
-        tab1, tab2, tab3, tab4 = st.tabs(["**Wye(Y) to Delta(Δ)**", "**Delta(Δ) to Wye(Y)**", "**Current Divider Rule**", "**Voltage Divider Rule**"])
-        with tab1:
-            wye_to_delta_tab()
-        with tab2:
-            delta_to_wye_tab()
-        with tab3:
-            current_divider_tab()        
-        with tab4:
-            voltage_divider_tab()
+        placeholder = st.empty()  # Add placeholder for dynamic content
+        with placeholder.container():
+            tab1, tab2, tab3, tab4 = st.tabs(["**Wye(Y) to Delta(Δ)**", "**Delta(Δ) to Wye(Y)**", "**Current Divider Rule**", "**Voltage Divider Rule**"])
+            current_divider_tab, voltage_divider_tab, wye_to_delta_tab, delta_to_wye_tab = load_circuit_modules()
+            gc.collect()  # Force garbage collection after loading modules
+            with tab1:
+                wye_to_delta_tab()
+            with tab2:
+                delta_to_wye_tab()
+            with tab3:
+                current_divider_tab()
+            with tab4:
+                voltage_divider_tab()
            
     if selected == "File Coverters":
-        tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["**CSV to Excel**","**Excel to CSV**", "**CSV to Pdf**", "**Pdf to CSV**", "**Excel to Pdf**", "**Pdf to Excel**"])
-        with tab1:
-            csv_to_excel_tab()
-        with tab2:
-            excel_to_csv_tab()
-        with tab3:
-            csv_to_pdf_tab()
-        with tab4:
-            pdf_to_csv_tab()
-        with tab5:
-            excel_to_pdf_tab()
-        with tab6:
-            pdf_to_excel_tab()
-        
+        placeholder = st.empty()
+        with placeholder.container():
+            tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["**CSV to Excel**","**Excel to CSV**", "**CSV to Pdf**", "**Pdf to CSV**", "**Excel to Pdf**", "**Pdf to Excel**"])
+            csv_to_excel_tab, csv_to_pdf_tab, excel_to_pdf_tab, excel_to_csv_tab, pdf_to_csv_tab, pdf_to_excel_tab = load_fileconv_modules()
+            with tab1:
+                csv_to_excel_tab()
+            with tab2:
+                excel_to_csv_tab()
+            with tab3:
+                csv_to_pdf_tab()
+            with tab4:
+                pdf_to_csv_tab()
+            with tab5:
+                excel_to_pdf_tab()
+            with tab6:
+                pdf_to_excel_tab()     
 main()
-    
-    
-    
+       
 # Keep this part at the end.
 components.html("""
     <head>
