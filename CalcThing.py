@@ -3,6 +3,7 @@ import streamlit.components.v1 as components
 import gc
 from posthog import Posthog
 from streamlit_option_menu import option_menu
+from streamlit_extras.buy_me_a_coffee import button
 
 # Set page config first, before any other Streamlit commands
 st.set_page_config(page_title="CalcThing", page_icon="logo.ico", layout="wide")
@@ -123,6 +124,8 @@ def main():
         fileconv()
         
 main()
+
+button(username="calcthing", width=220, font_color="#FFDD00", coffee_color="#FFDD00", bg_color="#1c1c1c" )
        
 # Keep this part at the end.
 components.html("""
