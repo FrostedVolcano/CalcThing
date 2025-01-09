@@ -123,10 +123,8 @@ def main():
         
 main()
 
-@st.fragment()
-def bumecofi():
-    button(username="calcthing", width=220, font_color="#FFDD00", coffee_color="#FFDD00", bg_color="#1c1c1c" )
-bumecofi()
+# button(username="calcthing", width=220, font_color="#FFDD00", coffee_color="#FFDD00", bg_color="#1c1c1c" )
+
 
        
 # Keep this part at the end.
