@@ -33,13 +33,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 SEO_TAGS = """
 <title>CalcThing - Circuit calculator with visualization and file format conversion</title>
-<meta name="description" content="Interactive visual calculator for engineering and physics. Calculate and visualize circuits, fluid mechanics, and more in real-time. Features include Wye-Delta conversion, voltage dividers, current dividers, and fluid dynamics calculations.">
+<meta name="description" content="Interactive visual calculator for engineering and physics. Calculate and visualize circuits, fluid mechanics, and more in real-time. Features include Wye-Delta conversion, voltage dividers, current dividers, led current limiter circuit and fluid dynamics calculations.">
 
 <!-- Google AdSense -->
 <meta name="google-adsense-account" content="ca-pub-6414688600235144">
 
 <!-- Additional SEO meta tags -->
-<meta name="keywords" content="visual calculator, engineering calculator, physics calculator, circuit calculator, fluid mechanics, wye-delta conversion, voltage divider, current divider, real-time visualization, engineering tools">
+<meta name="keywords" content="visual calculator, engineering calculator, physics calculator, circuit calculator, fluid mechanics, wye-delta conversion, voltage divider, current divider, led current limiting resistor real-time visualization, engineering tools">
 <meta name="author" content="CalcThing">
 <meta name="robots" content="index, follow">
 

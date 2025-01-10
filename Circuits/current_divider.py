@@ -60,7 +60,7 @@ def draw_parallel_circuit(current, resistor_count, resistances, currents):
 @st.fragment()
 def current_divider_tab():
     # Streamlit app title
-    st.title("Interactive Current Divider Circuit")
+    st.subheader("Current Divider Circuit")
 
     # Source-Voltage input
     current_inp = st.text_input("$Current$ $(A)$", value=str(10.0))

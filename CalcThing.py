@@ -1,9 +1,9 @@
 import streamlit as st
 import streamlit.components.v1 as components
-import gc
+#import gc
 from posthog import Posthog
 from streamlit_option_menu import option_menu
-from streamlit_extras.buy_me_a_coffee import button
+#from streamlit_extras.buy_me_a_coffee import button
 
 # Set page config first, before any other Streamlit commands
 st.set_page_config(page_title="CalcThing", page_icon="logo.ico", layout="wide")
@@ -38,7 +38,8 @@ def load_circuit_modules():
     from Circuits.voltage_divider import voltage_divider_tab
     from Circuits.wye_to_delta import wye_to_delta_tab
     from Circuits.delta_to_wye import delta_to_wye_tab
-    return current_divider_tab, voltage_divider_tab, wye_to_delta_tab, delta_to_wye_tab
+    from Circuits.led_current_limiter import led_current_limiter_tab
+    return current_divider_tab, voltage_divider_tab, wye_to_delta_tab, delta_to_wye_tab, led_current_limiter_tab
 
 @st.fragment()
 def load_fileconv_modules():
@@ -88,8 +89,8 @@ def main():
         def circuits():
             placeholder = st.empty()  # Add placeholder for dynamic content
             with placeholder.container():
-                tab1, tab2, tab3, tab4 = st.tabs(["**Wye(Y) to Delta(Δ)**", "**Delta(Δ) to Wye(Y)**", "**Current Divider Rule**", "**Voltage Divider Rule**"])
-                current_divider_tab, voltage_divider_tab, wye_to_delta_tab, delta_to_wye_tab = load_circuit_modules()
+                tab1, tab2, tab3, tab4, tab5 = st.tabs(["**Wye(Y) to Delta(Δ)**", "**Delta(Δ) to Wye(Y)**", "**Current Divider Rule**", "**Voltage Divider Rule**", "**LED Current Limiter**"])
+                current_divider_tab, voltage_divider_tab, wye_to_delta_tab, delta_to_wye_tab, led_current_limiter_tab = load_circuit_modules()
                 with tab1:
                     wye_to_delta_tab()
                 with tab2:
@@ -98,6 +99,8 @@ def main():
                     current_divider_tab()
                 with tab4:
                     voltage_divider_tab()
+                with tab5:
+                    led_current_limiter_tab()
         circuits()
            
     if selected == "File Coverters":

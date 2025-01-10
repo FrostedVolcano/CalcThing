@@ -65,7 +65,7 @@ def draw_series_circuit(voltage, resistor_count, resistances, voltages):
 
 @st.fragment()
 def voltage_divider_tab():
-    st.title("Interactive Voltage Divider Circuit")
+    st.subheader("Voltage Divider Circuit")
 
     # Source-Voltage input
     voltage_inp = st.text_input("$Voltage$ $(V)$", value=str(10.0))

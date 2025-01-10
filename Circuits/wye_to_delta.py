@@ -67,10 +67,11 @@ def wye_to_delta_tab():
         resc = round((denominator / res3), 4)
         delta_circuit = draw_delta_circuit(resa, resb, resc)
     
-        st.write("Delta Resistor Values:")
+        st.markdown("#### Delta (Δ) Resistor Values:")
         st.write(f"Ra = {resa:.4f} Ω")
         st.write(f"Rb = {resb:.4f} Ω")
         st.write(f"Rc = {resc:.4f} Ω")
         st.markdown(delta_circuit, unsafe_allow_html=True)
     
     display_wye_to_delta_formula()
+    

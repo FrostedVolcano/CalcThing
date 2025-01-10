@@ -45,8 +45,8 @@ def display_delta_to_wye_formula():
 @st.fragment()
 def delta_to_wye_tab():
     st.subheader("Delta (Δ) to Wye (Y) Circuit Converter")
-    col1, col2 = st.columns(2, gap='large')
     
+    col1, col2 = st.columns(2, gap='large')
     with col1:
         st.write("######")
         st.write("Input Delta (Δ) Resistor Values:")
@@ -68,7 +68,7 @@ def delta_to_wye_tab():
         rc = round((r3 * r1) / r_sum, 4)
     
         wye_circuit = draw_wye_circuit(ra, rb, rc)
-        st.write("Wye (Y) Resistor Values:")
+        st.markdown("#### Wye (Y) Resistor Values:")
         st.write(f"R1 = {ra:.4f} Ω")
         st.write(f"R2 = {rb:.4f} Ω")
         st.write(f"R3 = {rc:.4f} Ω")
