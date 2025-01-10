@@ -4,7 +4,7 @@ import pandas as pd
 import io
 
 def pdf_to_excel_tab():
-    st.title("PDF to Excel Converter")
+    st.markdown("#### PDF to Excel Converter")
 
     uploaded_file = st.file_uploader("Choose a PDF file", type="pdf", key='pdf_to_excel')
 

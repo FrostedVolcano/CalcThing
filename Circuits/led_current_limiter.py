@@ -3,7 +3,6 @@ import schemdraw
 from schemdraw import elements as elm
 
 def draw_led_circuit(v, r, i, f):
-    """Draw circuit with resistor, ammeter, LED, and battery"""
     d = schemdraw.Drawing()
     d.config(unit=2.5, color='#00cc00', bgcolor='none')
     p = d.add(elm.Battery().label(f"{v} V"))
@@ -22,7 +21,6 @@ def draw_led_circuit(v, r, i, f):
     return svg_data
 
 def calculate_resistance(v, f, i):
-    """Calculate the required resistance"""
     if i > 0:  # Avoid division by zero
         return (v - f) / (i / 1000)  # Convert mA to A
     return 0
@@ -31,11 +29,11 @@ def calculate_resistance(v, f, i):
 def show_formula():
     cl1, cl2 = st.columns(2)
     with cl1:
-        st.markdown("### Formula for Calculations:")
+        st.markdown("##### Formula for Calculations:")
         st.latex(r"R = \frac{V_s - V_f}{I_f}")
     with cl2:
         st.write("######")
-        st.markdown("Where:")
+        st.markdown("**Where:**")
         st.markdown(r"""
                     -  $R$ : Resistance \($\Omega$\)
                     -  $V_{s}$ : Source Voltage (V)
@@ -46,7 +44,7 @@ def show_formula():
 
 @st.fragment()
 def led_current_limiter_tab():
-    st.subheader("LED Current Limiting Circuit Calculator")
+    st.markdown("#### LED Current Limiting Circuit Calculator")
     
     col1, col2, col3, col4 = st.columns(4)
     with col1:
@@ -69,7 +67,7 @@ def led_current_limiter_tab():
         st.markdown(led_circuit, unsafe_allow_html=True)
     with cols2:
         st.write("#####")
-        st.markdown("#### Results:")
+        st.markdown("**Results:**")
         st.write(f"LED Forward Voltage: {f:.2f} V")
         st.write(f"Source Voltage: {v:.2f} V")
         st.write(f"Calculated Resistance: {r:.2f} Ω")

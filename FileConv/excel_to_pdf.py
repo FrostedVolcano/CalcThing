@@ -38,8 +38,7 @@ def excel_to_pdf_tab():
 
         return pdf_output
 
-    st.title("Excel to PDF Converter")
-    st.write("Upload an Excel file and get the corresponding PDF files.")
+    st.markdown("#### Excel to PDF Converter")
     
     uploaded_file = st.file_uploader("Choose an Excel file", type="xlsx", key='excel_to_pdf')
 

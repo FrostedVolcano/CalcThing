@@ -6,7 +6,7 @@ from io import BytesIO
 
 
 def csv_to_pdf_tab():
-    st.title("CSV to PDF Converter")
+    st.markdown("#### CSV to PDF Converter")
 
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv", key='csv_to_pdf')
 

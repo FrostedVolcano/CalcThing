@@ -15,10 +15,12 @@ def top_bar():
         [data-testid="stDecoration"] {
             display: none;
         }
+        header.stAppHeader {
+        background-color: transparent;
     </style>
     <style>
         .block-container {
-            padding-top: 3rem;
+            padding-top: 0rem;
             padding-bottom: 0rem;
             max-width: 90%;
             margin-left: auto;
@@ -53,18 +55,18 @@ def load_fileconv_modules():
 
 
 def main():
+    st.markdown("## CalcThing: Calculators and File Converters for Engineering & Physics")
     selected = option_menu(menu_title=None, options=["Home", "Circuits Page", "File Coverters"], icons= ["house", "activity", "file-earmark-bar-graph"], 
                            default_index=0,orientation="horizontal", menu_icon="cast")
     
     if selected == "Home":
         @st.fragment()
         def home():
-            st.header("CalcThing: Calculators and File Converters for Engineering & Physics")
             st.write("#####")
             
             cl1, cl2 = st.columns(2, gap="large")
             with cl1:
-                st.subheader("Circuits Page: Circuit Calculators and Converters with their schematics")
+                st.markdown("#### Circuits Page: Circuit Calculators and Converters with their schematics")
                 st.write("""
                     - Delta (Δ) to Wye (Y) Circuits and vise versa.
                     - Calculate voltage divider circuit.
@@ -72,7 +74,7 @@ def main():
                     - Calculate LED current limiter resistor values.
                      """)
             with cl2:
-                st.subheader("File Converters: File Converters for popular engineering file formats")
+                st.markdown("#### File Converters: File Converters for popular engineering file formats")
                 st.write("""
                     - Convert .csv files to .xlsx files.
                     - Convert .csv files to .pdf files.

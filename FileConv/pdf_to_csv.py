@@ -3,7 +3,7 @@ import pdfplumber
 import pandas as pd
 
 def pdf_to_csv_tab():
-    st.title("PDF to CSV Converter")
+    st.markdown("#### PDF to CSV Converter")
 
     uploaded_file = st.file_uploader("Choose a PDF file", type="pdf", key='pdf_to_csv')
 

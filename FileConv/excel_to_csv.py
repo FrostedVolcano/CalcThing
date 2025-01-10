@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 def excel_to_csv_tab():
-    st.title("Excel to CSV Converter")
+    st.markdown("#### Excel to CSV Converter")
 
     uploaded_file = st.file_uploader("Choose an Excel file", type="xlsx", key='excel_to_csv')
 

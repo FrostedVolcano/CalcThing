@@ -43,12 +43,12 @@ def display_wye_to_delta_formula():
 
 @st.fragment()
 def wye_to_delta_tab():
-    st.subheader("Wye (Y) to Delta (Δ) Circuit Converter")
+    st.markdown("#### Wye (Y) to Delta (Δ) Circuit Converter")
     col1, col2 = st.columns(2, gap='large')
     
     with col1:
         st.write("######")
-        st.write("Input Wye (Y) Resistor Values:")
+        st.write("**Input Wye (Y) Resistor Values:**")
         cols1, cols2, cols3 = st.columns(3)
         with cols1:
             res1 = st.number_input("Value of R1: ", min_value=0.0001, value=10.0, step=1.0, key="wye_res1")
@@ -67,7 +67,7 @@ def wye_to_delta_tab():
         resc = round((denominator / res3), 4)
         delta_circuit = draw_delta_circuit(resa, resb, resc)
     
-        st.markdown("#### Delta (Δ) Resistor Values:")
+        st.markdown("**Delta (Δ) Resistor Values:**")
         st.write(f"Ra = {resa:.4f} Ω")
         st.write(f"Rb = {resb:.4f} Ω")
         st.write(f"Rc = {resc:.4f} Ω")
