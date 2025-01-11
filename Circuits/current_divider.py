@@ -1,124 +1,107 @@
 import streamlit as st
 import schemdraw
 import schemdraw.elements as elm
+from functools import lru_cache
+import numpy as np
 
-def eq_resistance(connection_type, *args):
-    if connection_type == 'series':
-        return sum(args)
-    elif connection_type == 'parallel':
-        total_reci = sum(1 / r for r in args)
-        return 1/total_reci
-    else:
-        raise ValueError("Invalid connection type. Choose 'series' or 'parallel'.")
-
-def current_divider_rule(current, connection_type='parallel', *resistance):
-    resistance_all = eq_resistance('parallel', *resistance)
-
-    if connection_type == 'series':
-        return current
-    elif connection_type == 'parallel':
-        current_each = [(current * resistance_all) / r for r in resistance]
-        return current_each
-    else:
-        raise ValueError("Invalid Connection Type.")
-
-def draw_parallel_circuit(current, resistor_count, resistances, currents):
-    d = schemdraw.Drawing()
-    d.config(unit=2.5, color='#00cc00', bgcolor='none')
-
-    # Add a current source
-    C = d.add(elm.sources.SourceI().up().label(f'{round(current, 2)}A'))
-
-    # Create the parallel connection lines
-    previous_resistor_end_top = C.end
-    L_mid = d.add(elm.Line().at(C.start).down())
-
-    previous_resistor_end_below = L_mid.end
-    # Create resistors and lines in parallel
-    for i in range(resistor_count):
-        # Create a new horizontal line for the resistor at the top
-        L_top = d.add(elm.Line().right().at(previous_resistor_end_top).linewidth(2))
-        
-        # Place the resistor and label it with its value
-        R = d.add(elm.Resistor().down().at(L_top.end).linewidth(2).label(f'{round(resistances[i], 2)}Ω'))
-        Ammeter = d.add(elm.sources.MeterA().down().at(R.end).label(f'{round(currents[i], 2)}A'))
-
-        # Create a line back to the bottom node
-        L_bottom = d.add(elm.Line().right().at(previous_resistor_end_below).linewidth(2))
-
-        # Update the end points for the next resistor
-        previous_resistor_end_top = L_top.end
-        previous_resistor_end_below = L_bottom.end
-
-    # Get SVG data and handle encoding
-    svg_data = d.get_imagedata('svg')
-    if isinstance(svg_data, bytes):
-        return svg_data.decode('utf-8', errors='ignore')
-    return svg_data
-    
-
-@st.fragment()
+@st.fragment
 def current_divider_tab():
-    # Streamlit app title
-    st.markdown("#### Current Divider Circuit")
+    # Helper functions with caching
+    @lru_cache(maxsize=128)
+    def eq_resistance(resistances: tuple) -> float:
+        return 1.0 / np.sum(1.0 / np.array(resistances))
+    
+    @lru_cache(maxsize=128)
+    def calculate_currents(current: float, resistances: tuple) -> tuple:
+        resistance_all = eq_resistance(resistances)
+        return tuple((current * resistance_all) / r for r in resistances)
+    
+    def draw_parallel_circuit(_current: float, _resistances: list, _currents: list) -> str:
+        # Remove caching to allow dynamic updates
+        d = schemdraw.Drawing()
+        d.config(unit=2.5, color='#00cc00', bgcolor='none')
+        
+        # Add current source
+        C = d.add(elm.sources.SourceI().up().label(f'{_current:.2f}A'))
+        
+        # Create parallel connection lines
+        previous_resistor_end_top = C.end
+        L_mid = d.add(elm.Line().at(C.start).down())
+        previous_resistor_end_below = L_mid.end
+        
+        # Create resistors and lines in parallel
+        for i, (resistance, current) in enumerate(zip(_resistances, _currents)):
+            L_top = d.add(elm.Line().right().at(previous_resistor_end_top).linewidth(2))
+            R = d.add(elm.Resistor().down().at(L_top.end).linewidth(2).label(f'{resistance:.2f}Ω'))
+            d.add(elm.sources.MeterA().down().at(R.end).label(f'{current:.2f}A'))
+            L_bottom = d.add(elm.Line().right().at(previous_resistor_end_below).linewidth(2))
+            
+            previous_resistor_end_top = L_top.end
+            previous_resistor_end_below = L_bottom.end
+        
+        svg_data = d.get_imagedata('svg')
+        return svg_data.decode('utf-8', errors='ignore') if isinstance(svg_data, bytes) else svg_data
 
-    # Source-Voltage input
-    current_inp = st.text_input("$Current$ $(A)$", value=str(10.0))
-    try:
-        current_inp = float(current_inp)  # Convert to float
-    except ValueError:
-        st.error("Invalid input for current. Please Enter a valid number.")
-        current_inp = None
-
-    # Initialize resistors in session state if not already initialized
+    # Initialize session state
     if 'resistances' not in st.session_state:
-        st.session_state.resistances = [100.0, 100.0, 100.0]  # Default resistances (3 resistors of 100Ω)
+        st.session_state.resistances = [100.0, 100.0, 100.0]
 
-    # Handle adding/removing resistors
+    # Main UI
+    st.markdown("#### Current Divider Circuit")
+    
+    # Current input
+    try:
+        current = float(st.text_input("$Current$ $(A)$", value="10.0"))
+    except ValueError:
+        st.error("Invalid input for current. Please enter a valid number.")
+        return
+    
+    # Resistor controls
     col1, col2 = st.columns(2)
     with col1:
-        # Disable 'Add More Resistors' button when resistor count reaches 10
-        add_resistor_clicked = st.button("Add More Resistors", key='1234')
+        if st.button("Add More Resistors", key='add_resistor'):
+            st.session_state.resistances.append(100.0)
     with col2:
-        remove_resistor_clicked = st.button("Remove Last Resistors", key='2345')
-
-    # Update the resistances list based on button clicks
-    if add_resistor_clicked:
-        st.session_state.resistances.append(100.0)  # Add a new resistor with a default value of 100Ω
-
-    if remove_resistor_clicked:
-        st.session_state.resistances.pop()  # Remove the last resistor
-
-    gol1, gol2, gol3, gol4, gol5 = st.columns(5)
-    # Display resistor inputs based on the current number of resistors
-    gols = [gol1, gol2, gol3, gol4, gol5]  # Create a list of columns to alternate
-    for i in range(len(st.session_state.resistances)):
-        with gols[i % 5]:  # Modified Line: Alternate between 5 columns and cycle back to the first one
-            resistor_value = st.text_input(
-                label=f"$R_{{{i+1}}} \, (\Omega)$", 
-                value=str(round(st.session_state.resistances[i], 2)), 
-                key=f"resistor_{i}"  # Unique key to track each input widget
-            )
+        if st.button("Remove Last Resistor", key='remove_resistor') and len(st.session_state.resistances) > 1:
+            st.session_state.resistances.pop()
+    
+    # Resistor inputs
+    columns = st.columns(5)
+    updated_resistances = []
+    valid_inputs = True
+    
+    for i, resistance in enumerate(st.session_state.resistances):
+        with columns[i % 5]:
             try:
-                new_resistor_value = float(resistor_value)
-                if new_resistor_value != st.session_state.resistances[i]:
-                    st.session_state.resistances[i] = new_resistor_value
+                value = float(st.text_input(
+                    f"$R_{{{i+1}}} \, (\Omega)$",
+                    value=f"{resistance:.2f}",
+                    key=f"resistor_{i}"
+                ))
+                updated_resistances.append(value)
             except ValueError:
-                st.error(f"Invalid input for resistance")
-
-    result = current_divider_rule(current_inp, 'parallel', *st.session_state.resistances)
-
-    img_buffer = draw_parallel_circuit(current_inp, len(st.session_state.resistances), st.session_state.resistances, result)
-    st.image(img_buffer, caption=f"Parallel Circuit Diagram")
-
-    if current_inp and st.session_state.resistances:  # Check if voltage and resistances are valid
-        try:
-            st.subheader("Results:")
-            nol1, nol2, nol3, nol4, nol5 = st.columns(5)
-            nols = [nol1, nol2, nol3, nol4, nol5]
-            for i in range(len(result)):
-                with nols[i % 5]:  # Alternate between left and right columns
-                    st.write(f"$C-Flow$ $R_{{{i+1}}} \, (\Omega)$: {round(result[i], 2)} A")
-                        
-        except ValueError as e:
-            st.error(f"Error: {e}")
+                st.error(f"Invalid input for R_{i+1}")
+                valid_inputs = False
+                break
+    
+    # Calculate and display results only if all inputs are valid
+    if valid_inputs and updated_resistances:
+        # Update session state
+        st.session_state.resistances = updated_resistances
+        
+        # Convert to tuple for caching
+        resistances_tuple = tuple(updated_resistances)
+        
+        # Calculate currents using cached function
+        currents = list(calculate_currents(current, resistances_tuple))
+        
+        # Draw circuit diagram - now updates dynamically
+        img_buffer = draw_parallel_circuit(current, updated_resistances, currents)
+        st.image(img_buffer, caption="Parallel Circuit Diagram")
+        
+        # Display results
+        st.subheader("Results:")
+        result_columns = st.columns(5)
+        for i, current_value in enumerate(currents):
+            with result_columns[i % 5]:
+                st.write(f"$C-Flow$ $R_{{{i+1}}} \, (\Omega)$: {current_value:.2f} A")
