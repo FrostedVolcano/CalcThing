@@ -1,6 +1,8 @@
+[runner]
+fastReruns = true
+
 [theme]
 base="dark"
 primaryColor="#177f15"
 backgroundColor="#1c1c1c"
 secondaryBackgroundColor="#272d27"
-gatherUsageStats = false

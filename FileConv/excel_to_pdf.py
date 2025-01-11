@@ -4,6 +4,7 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from io import BytesIO
 
+
 def excel_to_pdf_tab():
     def generate_pdf(data):
         buffer = BytesIO()
