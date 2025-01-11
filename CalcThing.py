@@ -1,6 +1,5 @@
 import streamlit as st
 import streamlit.components.v1 as components
-#import gc
 from posthog import Posthog
 from streamlit_option_menu import option_menu
 #from streamlit_extras.buy_me_a_coffee import button
@@ -35,7 +34,6 @@ posthog = Posthog('phc_79RpiYGOIeOrJuM1gdxQtT2aQHwltOyLPRd6V1ZrRq6', host='https
 # Only import modules when needed
 @st.fragment()
 def load_circuit_modules():
-    import gc
     from Circuits.current_divider import current_divider_tab
     from Circuits.voltage_divider import voltage_divider_tab
     from Circuits.wye_to_delta import wye_to_delta_tab
